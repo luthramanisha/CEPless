@@ -65,33 +65,6 @@ The operators directory contains some example operators in different programming
 ```
 This will build the corresponding operator and push it to the given docker registry account. 
 
-### Running TCEP
-
-**1.** Build all the project parts using the build script provided:
-```
-./build.sh
-```
-**2.**  When the build from step 1 finished successfully, the application can be started by navigating into the tcep directory and issuing the following command. Please note to set `KAFKA_HOST`to refect your docker gateway IP in docker-compose.yml.
-```
-docker network create node-manager-net
-docker-compose up
-```
-**3.** The CEP system is now starting on your local machine which takes about 1 minute to finish. You can open the logs of the node manager using this command: 
-```
-docker logs -f tcep_nodeManager_1
-```
-**4.** When the system placed the custom example query, you should see the following output which confirms that the custom operator is running: 
-```
-2019/06/23 09:30:32 Registering streaming node with name da366f626fd1
-2019/06/23 09:30:34 edd08825ce642ddd2c7f8fd96759d1e62a7ed5c5004df1ed235ac7543881e712
-``` 
-**5.** You can now see the events handled by the custom example operator by showing the logs using this command: 
-```
-docker logs -f custom-test-{id}
-```
-
-The custom operator receives the event submitted from the CEP engine in the redis queue and answers with a simple string `foobar`
-
 
 ### Running Flink
 
@@ -130,6 +103,32 @@ cd ./cepless_flink
 ```
 ./run-flink.sh
 ```
+### Running TCEP
+
+**1.** Build all the project parts using the build script provided:
+```
+./build.sh
+```
+**2.**  When the build from step 1 finished successfully, the application can be started by navigating into the tcep directory and issuing the following command. Please note to set `KAFKA_HOST`to refect your docker gateway IP in docker-compose.yml.
+```
+docker network create node-manager-net
+docker-compose up
+```
+**3.** The CEP system is now starting on your local machine which takes about 1 minute to finish. You can open the logs of the node manager using this command: 
+```
+docker logs -f tcep_nodeManager_1
+```
+**4.** When the system placed the custom example query, you should see the following output which confirms that the custom operator is running: 
+```
+2019/06/23 09:30:32 Registering streaming node with name da366f626fd1
+2019/06/23 09:30:34 edd08825ce642ddd2c7f8fd96759d1e62a7ed5c5004df1ed235ac7543881e712
+``` 
+**5.** You can now see the events handled by the custom example operator by showing the logs using this command: 
+```
+docker logs -f custom-test-{id}
+```
+
+The custom operator receives the event submitted from the CEP engine in the redis queue and answers with a simple string `foobar`
 
 ### Evaluation
 
