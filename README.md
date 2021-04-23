@@ -148,9 +148,9 @@ docker network create node-manager-net
 docker-compose up -d 
 ```
 Flink is now starting on your local machine which takes about 30 seconds to finish. 
-**5.** An example query is included in this project in the `cepless_flink` directory. To build the flink executable query jar issue the following commands
+**5.** An example query is included in this project in the `flink` directory. To build the flink executable query jar issue the following commands
 ```
-cd ./cepless_flink
+cd ./flink
 ./build.sh
 ```
 **6.** After that you can start the example query using the following script from the root directory. Please note to set `--kafka.server`to refect your docker gateway IP.
