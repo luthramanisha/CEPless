@@ -1,0 +1,88 @@
+version: "2.1"
+services:
+  jobmanager:
+    image: mluthra/custom-flink
+    expose:
+      - "6123"
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    networks:
+      - main
+      - node-manager-net
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - INFINISPAN_HOST=172.19.0.3
+      - REDIS_HOST=redis
+      - DB_TYPE=redis
+      - NODE_MANAGER_HOST=nodeManager:25003
+      - OUT_BATCH_SIZE=100
+      - IN_BATCH_SIZE=10000
+      - FLUSH_INTERVAL=1
+      - BACK_OFF=1
+
+
+  taskmanager:
+    image: mluthra/custom-flink
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    networks:
+      - main
+      - node-manager-net
+    links:
+      - "jobmanager:jobmanager"
+    volumes: 
+      - $HOME/logs:/opt/flink/logs
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - INFINISPAN_HOST=172.19.0.3
+      - REDIS_HOST=redis
+      - DB_TYPE=redis
+      - NODE_MANAGER_HOST=nodeManager:25003
+      - OUT_BATCH_SIZE=100
+      - IN_BATCH_SIZE=10000
+      - FLUSH_INTERVAL=1
+      - BACK_OFF=1
+
+  redis:
+    image: redis
+    networks:
+      - main
+      - node-manager-net
+
+  nodeManager:
+    image: node-manager
+    networks:
+      - main
+      - node-manager-net
+    ports:
+      - 25003:25003
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./../operators:/app/operators
+    environment: 
+      # - OPERATOR_UPDATE_TIMEOUT=300
+      # - OPERATOR_UPDATE_NAME=op-test-2
+      - EXECUTION=flink
+
+  # infinispan:
+  #   image: custom-infinispan
+  #   expose:
+  #     - "11222"
+  #   ports:
+  #     - "11222:11222"
+  #   networks:
+  #     - main
+  #     - node-manager-net
+  #   environment:
+  #     - USER=foo
+  #     - PASSWORD=bar
+
+networks:
+  main:
+  node-manager-net:
+    external: true
