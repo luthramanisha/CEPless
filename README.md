@@ -65,44 +65,6 @@ The operators directory contains some example operators in different programming
 ```
 This will build the corresponding operator and push it to the given docker registry account. 
 
-
-### Running Flink
-
-**1.** Make sure to install the correct version of Maven on your machine (3.2.5 not higher)
-```
-cd /opt
-wget https://www-us.apache.org/dist/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz
-tar -xvzf apache-maven-3.2.5-bin.tar.gz
-```
-**2.** Add Maven to your ~/.bashrc
-``` 
-export PATH=/opt/apache-maven-3.2.5/bin:$PATH
-```
-**3.** Build the Flink project using the following script
-```
-cd ./flink
-./build.sh
-```
-If the build should fail, because of missing dependencies try to switch into the subproject the build where the build is failing (for example flink-tables) and run the following command
-```
-mvn package -DskipTests -Dfast
-```
-After this subproject build succeeds you can run again the build script from above
-**4.**  When the build from step 3 finished successfully, the application can be started by issuing the following command: 
-```
-docker network create node-manager-net
-docker-compose up -d 
-```
-Flink is now starting on your local machine which takes about 30 seconds to finish. 
-**5.** An example query is included in this project in the `cepless_flink` directory. To build the flink executable query jar issue the following commands
-```
-cd ./cepless_flink
-./build.sh
-```
-**6.** After that you can start the example query using the following script from the root directory. Please note to set `--kafka.server`to refect your docker gateway IP.
-```
-./run-flink.sh
-```
 ### Running TCEP
 
 **1.** Build all the project parts using the build script provided:
@@ -129,6 +91,45 @@ docker logs -f custom-test-{id}
 ```
 
 The custom operator receives the event submitted from the CEP engine in the redis queue and answers with a simple string `foobar`
+
+### Running Flink
+
+**1.** Make sure to install the correct version of Maven on your machine (3.2.5 not higher)
+```
+cd /opt
+wget https://www-us.apache.org/dist/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz
+tar -xvzf apache-maven-3.2.5-bin.tar.gz
+```
+**2.** Add Maven to your ~/.bashrc
+``` 
+export PATH=/opt/apache-maven-3.2.5/bin:$PATH
+```
+**3.** Clone and build the Flink project using the following script
+```
+git clone git@github.com:apache/flink.git
+cd ./flink
+./build.sh
+```
+If the build should fail, because of missing dependencies try to switch into the subproject the build where the build is failing (for example flink-tables) and run the following command
+```
+mvn package -DskipTests -Dfast
+```
+After this subproject build succeeds you can run again the build script from above
+**4.**  When the build from step 3 finished successfully, the application can be started by issuing the following command: 
+```
+docker network create node-manager-net
+docker-compose up -d 
+```
+Flink is now starting on your local machine which takes about 30 seconds to finish. 
+**5.** An example query is included in this project in the `cepless_flink` directory. To build the flink executable query jar issue the following commands
+```
+cd ./cepless_flink
+./build.sh
+```
+**6.** After that you can start the example query using the following script from the root directory. Please note to set `--kafka.server`to refect your docker gateway IP.
+```
+./run-flink.sh
+```
 
 ### Evaluation
 
