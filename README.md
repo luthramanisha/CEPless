@@ -133,6 +133,8 @@ export PATH=/opt/apache-maven-3.2.5/bin:$PATH
 ```
 git clone git@github.com:apache/flink.git
 cd ./flink
+cp ../flink-streaming-java .
+cp ../flink-streaming-java/build.sh .
 ./build.sh
 ```
 If the build should fail, because of missing dependencies try to switch into the subproject the build where the build is failing (for example flink-tables) and run the following command
