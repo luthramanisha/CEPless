@@ -1,0 +1,5 @@
+[
+  {	"name": "Receive Unary",
+    "code": "package main\n\nimport \"log\"\nimport \"time\"\n\nfunc makeTimestamp() int64 {\n\treturn time.Now().UnixNano() / int64(time.Millisecond)\n}\n\n\nfunc ReceiveUnary(item map[string]interface{}) map[string]interface{} {\n\t// Custom function code\n\tlog.Printf(\"Received new item %v %v\", item[\"data\"], makeTimestamp())\n\tresult := make(map[string]interface{})\n\tresult[\"data\"] = item[\"data\"]\n\tlog.Printf(\"Sending returned item %v\", result[\"data\"])\n\treturn result\n}\n"
+  }
+]

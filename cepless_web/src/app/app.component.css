@@ -1,0 +1,46 @@
+:host {
+  --main-font-size: 14px;
+  --box-size: 2em;
+  --box-font-size: 15px;
+}
+
+body {
+  font-size: var(--main-font-size);
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+p {
+  text-align: justify;
+}
+
+h3 {
+  margin: 0.5em 0em 0.1em;
+}
+
+nav a {
+  font-weight: bold;
+  padding: 0.5em 2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 2px;
+}
+
+nav a:visited, a:link {
+  color: #334953;
+}
+
+nav a:hover {
+  background-color: #CFD8DC;
+}
+
+nav a.active {
+  color: #0094dc;
+}
+
+.container {
+  width: 65%;
+}
+

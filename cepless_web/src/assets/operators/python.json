@@ -1,0 +1,5 @@
+[
+{	"name": "Forward",
+	"code": "#Implement this function to customize your operator\ndef process(item):\n\treturn item"
+}
+]

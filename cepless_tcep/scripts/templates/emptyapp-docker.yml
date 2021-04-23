@@ -1,0 +1,21 @@
+
+  {{name}}:
+    image: {{image}}
+    environment:
+      - MAIN=tcep.machinenodes.EmptyApp
+      - ARGS=--port {{inport}} --ip {{name}}
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - {{inport}}:{{outport}}
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == {{hostname}}]
+    privileged: true

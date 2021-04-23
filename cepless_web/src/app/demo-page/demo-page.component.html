@@ -1,0 +1,113 @@
+<title>CEPless Demo</title>
+
+<h1>CEPless Demo</h1>
+<p class="emphasize"><a href="cepless" target="_blank">CEPless </a>is a programming middleware for CEP systems. It
+  provides
+  “operator as a
+  service” by enabling its development in multiple specification languages while abstracting away the complexity of the
+  <a href="cepless/#cep-sys" target="_blank">CEP engine</a> building on the concept of <a href="cepless/#serverless"
+                                                                                          target="_blank">serverless
+    computing</a>. In this page, we provide an interactive demo of CEPless.
+  You can specify your own custom operator that will run on CEPless middleware and eventually interact with CEP systems
+  running underneath. In essence you can write CEP applications using this interface without learning complex CEP
+  systems.</p>
+
+<h3>How does this page work?</h3>
+<p>This page is a proof of concept and a research prototype. It uses HTTP connections and CEPless platform to create
+  containerized custom operators and deploy them automatically. More information on <a href="cepless/#tutorial"
+                                                                                       target="_blank">how to use</a>
+  this interactive demo. Since this page is still under experiment, any <a href="demo/#feedbacks">feedback</a> from you
+  is welcome. Please <a href="demo/#contact">contact</a> us if you experience problems.</p>
+
+<!-- Language and Example operator dropdowns-->
+<div class="emphasize" style="margin-bottom: 2em;">
+  <h3><i class="fas fa-code"></i> Specify Custom Operator</h3>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="language">Select specification language</label>
+          <select class="form-control" [(ngModel)]="language" (change)="changeLanguage()" id="language">
+            <option *ngFor="let l of languages" [ngValue]="l">{{l}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="operator">Load example operator</label>
+          <select class="form-control" [(ngModel)]="currentOperator" (change)="changeOperator()" id="operator">
+            <option *ngFor="let o of operators" [ngValue]="o">{{o.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor -->
+  <ngx-monaco-editor style="height: 30em" class="my-code-editor" [options]="editorOptions"
+                     [(ngModel)]="code" (ngModelChange)="canSubmit=false"></ngx-monaco-editor>
+
+  <!-- Output console -->
+  <div class="row">
+    <h3 class="col-md-4"><i class="fas fa-cogs"></i> Output Console</h3>
+    <div class="col-md-8">
+      <button class="btn btn-outline-secondary float-right" (click)="clearConsole()">
+        <i class="fas fa-eraser"></i>
+        Clear Console
+      </button>
+    </div>
+  </div>
+  <ngx-monaco-editor style="height: 10em;" class="my-code-editor" [options]="consoleOptions"
+                     [(ngModel)]="demoConsole" id="output-console"></ngx-monaco-editor>
+
+  <!-- Check syntax, Submit, Save buttons -->
+  <div class="row">
+    <div class="col-md-3">
+      <button class="btn btn-block btn-outline-warning" (click)="checkOperator()">
+        <i class="fas fa-check"></i>
+        Check Operator
+      </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-block btn-outline-info" (click)="submitOperator()" [disabled]=!canSubmit>
+        <i class="fas fa-paper-plane"></i>
+        Submit Operator
+      </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-block btn-outline-info" (click)="saveOperator(0)">
+        <i class="fas fa-save"></i>
+        Save Operator
+      </button>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-block btn-outline-danger" (click)="deleteOperator()">
+        <i class="fas fa-trash-alt"></i>
+        Delete Operator
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- User feedback form -->
+<h3 id="feedbacks">Feedback</h3>
+<form action="/feedback" ngNativeValidate>
+  <div *ngFor="let f of forms; let i=index">
+    <div>{{f.question}}</div>
+    <div class="row">
+      <div *ngFor="let a of f.answers" style="margin: 10px 0px 10px 15px">
+        <div>
+          <label><input class="fb-radio-btn" type="radio" name={{f.name}} (change)="changeRadio(i, a.answer)"
+                        required> {{a.answer}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>Additional remarks related to the demo or CEPless</div>
+  <textarea type="text" rows="4" class="form-control" (change)="changeRemarks($event)"></textarea>
+  <button type="submit" class="btn btn-outline-secondary" (click)="submitFeedback()"><i
+    class="fa fa-paper-plane"></i> Submit Feedback
+  </button>
+</form>
+
+<div id="submission-noti"></div>

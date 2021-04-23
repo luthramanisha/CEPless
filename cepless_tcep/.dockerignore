@@ -1,0 +1,9 @@
+.gitignore
+.gitmodules
+
+.git/
+.idea/
+graphs/
+docs/
+
+*.md

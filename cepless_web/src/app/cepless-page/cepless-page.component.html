@@ -1,0 +1,162 @@
+<title>About CEPless</title>
+
+<h1>Operator as a Service: Stateful Serverless Complex Event Processing</h1>
+
+<p class="intro">CEPless is a programming middleware for CEP systems. It provides “operator as a service” by enabling
+  its development
+  in multiple specification languages while abstracting away the complexity of the <a href="cepless/#cep-sys">CEP
+    engine</a> building on the concept of
+  <a href="cepless/#serverless">serverless computing</a>. In this page, we provide a getting started <a
+    href="cepless/#tutorial">tutorial</a>, <a href="cepless/#examples">operator examples</a>, programming interface
+  and <a href="demo" target="_blank">demo</a> for two state-of-the-art CEP systems:
+  <a href="https://luthramanisha.github.io/TCEP/" target="_blank">TCEP</a> and  <a href = "https://flink.apache.org/" target ="_blank">Flink</a>
+
+ <!-- <div class="jumbotron">
+    <div class="container">
+
+      <div class="col-md-10 col-md-offset-1">
+        <script>function copyBib(e)
+        {
+          var c=document.getElementById(e),
+            t=document.activeElement;c.focus(),
+          c.setSelectionRange(0,c.value.length);
+          try {
+            document.execCommand("copy")
+          }
+          catch(e) {
+            !1
+          }
+          t&&"function"==typeof
+            t.focus&&t.focus()
+        }
+        </script>
+        <div class="clearfix well">
+          <img src="../../assets/images/pdf.png" alt="Image" height="1" width="1" class="pull-left">
+          <div style="padding-left:50px"><p style="margin-bottom:5px"><strong>
+  Operator as a Service: Stateful Serverless Complex Event Processing</strong></p>
+    <p style="color:#303030">by Manisha Luthra, Sebastian Hennig, Kamran Razavi, Lin Wang, Boris Koldehofe,
+  Ralf Steinmetz</p>
+
+
+<a class="btn btn-default" href="froemmgen-middleware2017.pdf">Download Paper</a>
+&lt;!&ndash; <a class="btn btn-default" href="froemmgen-middleware2017-slides.pdf">Slides</a> &ndash;&gt;
+&lt;!&ndash;<button type="button" class="btn btn-default pull-right" onclick="copyBib(&quot;copyBibSource&quot;)">Copy Bib</button>
+<textarea style="position:absolute;left:-9999px;top:0" id="copyBibSource">@inproceedings{froemmgen2017progmp,
+title={{A Programming Model for Application-defined Multipath TCP Scheduling}},
+author={Froemmgen, Alexander and Rizk, Amr and Erbshaeusser, Tobias and Weller, Max and Koldehofe, Boris and Buchmann, Alejandro and Steinmetz, Ralf},
+booktitle={ACM/IFIP/USNIX Middleware},
+year={2017},
+} </textarea></div> &ndash;&gt;
+
+
+-->
+ <!-- Tutorial -->
+<h3 id="tutorial">Tutorial</h3>
+<p>In this tutorial, we will demonstrate how to use the CEPless <a href="demo" target="_blank">demo</a> to create a
+  custom operator that executes on the aforementioned CEP system.</p>
+
+<figure class="figure text-center">
+  <img src="../../assets/images/tutorial/select.png" class="figure-img img-fluid"
+       alt="Choose your language and template">
+  <figcaption class="figure-caption text-center">Step 1. Choose the language and template for your operator
+  </figcaption>
+</figure>
+
+<figure class="figure text-center">
+  <img src="../../assets/images/tutorial/check.png" class="figure-img img-fluid"
+       alt="Check your operator syntax">
+  <figcaption class="figure-caption text-center">Step 2. Check your operator syntax
+  </figcaption>
+</figure>
+
+<figure class="figure text-center">
+  <img src="../../assets/images/tutorial/submit.png" class="figure-img img-fluid"
+       alt="Submit your template">
+  <figcaption class="figure-caption text-center">Step 3. Submit your operator to the back-end for further processing
+  </figcaption>
+</figure>
+
+<figure class="figure text-center">
+  <img src="../../assets/images/tutorial/save.png" class="figure-img img-fluid"
+       alt="Save your template">
+  <figcaption class="figure-caption text-center">Step 4. You can also edit the existing template and save it as a new one.
+  </figcaption>
+</figure>
+
+<figure class="figure text-center">
+  <img src="../../assets/images/tutorial/delete.png" class="figure-img img-fluid"
+       alt="Delete the saved templates if you don't need them anymore">
+  <figcaption class="figure-caption text-center">Step 5. Delete the saved templates if you don't need them anymore
+  </figcaption>
+</figure>
+
+<h3>Getting Started</h3>
+
+<!-- About CEP System -->
+<h3 id="cep-sys">Background: CEP System</h3>
+
+<figure class="figure text-center">
+  <img src="../../assets/images/cep-general.png" class="figure-img img-fluid" alt="CEP System">
+  <figcaption class="figure-caption text-center">Figure 1. CEP System</figcaption>
+</figure>
+
+<!-- CEP Definition -->
+<h6>What is a CEP System?</h6>
+<p>Complex Event Processing (CEP) is the processing of multiple streams of data (events) to deduce the meaningful events
+  behind those information and make quick responses to them. Some notable use cases of CEP are stock market prediction,
+  fraud detection in transactions, etc. A CEP system receives <b>states of changes</b>
+  or events from the <b>producers</b>, processes them and decides whether or not to notify the <b>consumers</b>.</p>
+<p>For example, in a bank transaction, a CEP system of bank receives a transfer (event) from a terminal (producer). The
+  system examines the location and the amount of the transfer to see if there is anything suspicious. If yes, it will
+  notify the bank (consumer).</p>
+
+<!-- Serverless Computing -->
+<h6 id="serverless">What is Serverless Computing?</h6>
+<p>In serverless paradigm, the deployed code is <b>abstracted away</b> from the underlying infrastructure, therefore the
+  code becomes much easier to maintained and the system experiences less down-time during the maintenance.</p>
+
+<!-- Reason for CEPless -->
+<h6>Why CEPless?</h6>
+<p>In many large-scale systems, the reliability of the infrastructure depends mostly on its continuous availability.
+  Therefore, those systems must be kept "alive" at all time. Since the serverless computing detaches parts of the code
+  from the underlying infrastructures, the code can be updated on the fly without affecting the availability of the
+  systems.</p>
+
+<!-- About CEPless -->
+<h3>CEPless Overview</h3>
+<figure class="figure text-center">
+  <img src="../../assets/images/cepless-design.png" class="figure-img img-fluid" alt="CEPless Overview">
+  <figcaption class="figure-caption text-center">Figure 2. CEPless Architecture</figcaption>
+</figure>
+
+<!-- CEPless Architecture -->
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-10">
+    <ol>
+      <li>From the programming interface, the user can:</li>
+      <ol type="a">
+        <li>program their own operators. The custom operators are then validated by the web application.</li>
+        <li>Predefined operators can also be submitted directly into the registry.</li>
+      </ol>
+      <li>The validated operators are containerized and submitted into the registry.</li>
+      <li>The containers are pulled on request from the backend of the CEPless platform.</li>
+      <li>Our node manager receives request from the CEP system.</li>
+      <li>The requested operator is retrieved from the registry.</li>
+      <li>The input from the CEP system is handled by the newly requested operator.</li>
+      <li>The output is obtained and sent back to the CEP system.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Operator Examples -->
+<h3 id="examples">Operator Examples</h3>
+<div *ngFor="let t of javaTemplates">
+  <div
+    *ngIf="t.name == 'Forward' || t.name == 'Sine Function Extension' || t.name == 'Sliding Length Window' || t.name == 'Fraud Detection' ">
+    <h6>{{t.name}}</h6>
+    <p>{{t.description}}</p>
+    <pre><code>{{t.code}}</code></pre>
+  </div>
+</div>
+

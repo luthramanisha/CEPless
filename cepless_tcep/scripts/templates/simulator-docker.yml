@@ -1,0 +1,22 @@
+
+  {{name}}:
+    image: {{image}}
+    environment:
+      - MAIN=tcep.simulation.tcep.SimulationRunner
+      - ARGS= ./logs 4 {{name}} {{inport}}
+    depends_on:
+       - {{vivaldicontainer}}
+    volumes:
+       - $HOME/logs:/app/logs
+    ports:
+       - {{inport}}:{{outport}}
+       - {{tcepinport}}:{{tcepoutport}}
+    networks:
+       - main
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+      placement:
+        constraints: [node.hostname == {{hostname}}]
+    privileged: true

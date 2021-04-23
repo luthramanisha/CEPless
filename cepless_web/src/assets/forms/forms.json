@@ -1,0 +1,72 @@
+[
+  {	"name": "fam",
+    "question": "How familiar are you with Complex Event Processing (CEP)?",
+    "answers": [
+      {
+        "answer": "Expert"
+      },
+      {
+        "answer": "Knowledgeable"
+      },
+      {
+        "answer": "Not at all"
+      }
+    ]
+  },
+  {	"name": "bef",
+    "question": "Have you developed a CEP operator before?",
+    "answers": [
+      {
+        "answer": "A lot"
+      },
+      {
+        "answer": "A bit"
+      },
+      {
+        "answer": "Not at all"
+      }
+    ]
+  },
+  {	"name": "exp",
+    "question": "Do you have experience with CEP frameworks like Apache Flink, Storm etc.?",
+    "answers": [
+      {
+        "answer": "A lot"
+      },
+      {
+        "answer": "A bit"
+      },
+      {
+        "answer": "Not at all"
+      }
+    ]
+  },
+  {	"name": "rate",
+    "question": "How do you rate creating operators using CEPless programming interface?",
+    "answers": [
+      {
+        "answer": "Convenient"
+      },
+      {
+        "answer": "Normal"
+      },
+      {
+        "answer": "Useless"
+      }
+    ]
+  },
+  {	"name": "use",
+    "question": "Do you think CEPless programming interface could be useful for CEP application development?",
+    "answers": [
+      {
+        "answer": "Yes"
+      },
+      {
+        "answer": "Maybe"
+      },
+      {
+        "answer": "Not at all"
+      }
+    ]
+  }
+]

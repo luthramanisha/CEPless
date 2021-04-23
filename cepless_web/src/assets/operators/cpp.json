@@ -1,0 +1,5 @@
+[
+{	"name": "Forward",
+	"code": "#include <iostream>\n#include <vector>\n#include <string>\n#include <operator.h>\n\nstd::vector<std::string> process(std::vector<std::string> item) {\n    std::vector<std::string> result;\n    for (std::string s : result) \n        result.push_back(s); \n\treturn result;\n};\n"
+}
+]

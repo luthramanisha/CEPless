@@ -1,0 +1,1377 @@
+# This stack assumes that 7 docker hosts exists with hostname cluster0 ... cluster7
+# You can set the hostname of docker host by using this command `sudo hostname <name>`
+version: "3"
+services:
+
+#Cluster 0 Services (Manager Host)
+  nserver:
+    image: cloudwattfr/ntpserver:latest
+    ports:
+      - 123:123
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster0]
+    privileged: true
+
+  viv:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.VivaldiApp
+      - ARGS=--port 2549 --ip viv
+    depends_on:
+      - nserver
+    ports:
+      - 2549:2549
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster0]
+    privileged: true
+
+#Cluster 1 Services (10.2.1.40)
+  c160:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2560 --ip c160
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2560:2560
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c161:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2561 --ip c161
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2561:2561
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c162:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2562 --ip c162
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2562:2562
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c163:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2563 --ip c163
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2563:2563
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c164:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2564 --ip c164
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2564:2564
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c165:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2565 --ip c165
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2565:2565
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c166:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2566 --ip c166
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2566:2566
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c167:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2567 --ip c167
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2567:2567
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c168:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2568 --ip c168
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2568:2568
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c169:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2569 --ip c169
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2569:2569
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+  c170:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 2570 --ip c170
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2570:2570
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster1]
+    privileged: true
+
+#Cluster 2 Services (10.2.1.42)
+  c260:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3560 --ip c260
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3560:3560
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c261:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3561 --ip c261
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3561:3561
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c262:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3562 --ip c262
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3562:3562
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c263:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3563 --ip c263
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3563:3563
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c264:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3564 --ip c264
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3564:3564
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c265:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3565 --ip c265
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3565:3565
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c266:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3566 --ip c266
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3566:3566
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c267:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3567 --ip c267
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3567:3567
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c268:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3568 --ip c268
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3568:3568
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c269:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3569 --ip c269
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3569:3569
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+  c270:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 3570 --ip c270
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3570:3570
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster2]
+    privileged: true
+
+
+#Cluster 3 Services
+  c360:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4560 --ip c360
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4560:4560
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c361:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4561 --ip c361
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4561:4561
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c362:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4562 --ip c362
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4562:4562
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c363:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4563 --ip c363
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4563:4563
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c364:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4564 --ip c364
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4564:4564
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c365:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4565 --ip c365
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4565:4565
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c366:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4566 --ip c366
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4566:4566
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c367:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4567 --ip c367
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4567:4567
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c368:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4568 --ip c368
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4568:4568
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c369:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4569 --ip c369
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4569:4569
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+  c370:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 4570 --ip c370
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 4570:4570
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster3]
+    privileged: true
+
+#Cluster 4 Services
+  c460:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5560 --ip c460
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5560:5560
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c461:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5561 --ip c461
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5561:5561
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c462:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5562 --ip c462
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5562:5562
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c463:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5563 --ip c463
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5563:5563
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c464:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5564 --ip c464
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5564:5564
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c465:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5565 --ip c465
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5565:5565
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c466:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5566 --ip c466
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5566:5566
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c467:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5567 --ip c467
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5567:5567
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c468:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5568 --ip c468
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5568:5568
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c469:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5569 --ip c469
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5569:5569
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true
+
+  c470:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 5570 --ip c470
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 5570:5570
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster4]
+    privileged: true    
+
+#Cluster 5 Services
+  c560:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6660 --ip c560
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6660:6660
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c561:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6661 --ip c561
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6661:6661
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c562:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6662 --ip c562
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6662:6662
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c563:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6663 --ip c563
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6663:6663
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c564:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6664 --ip c564
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6664:6664
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c565:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6665 --ip c565
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6665:6665
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c566:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6666 --ip c566
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6666:6666
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c567:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6667 --ip c567
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6667:6667
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c568:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6668 --ip c568
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6668:6668
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c569:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6669 --ip c569
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6669:6669
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+  c570:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.EmptyApp
+      - ARGS=--port 6670 --ip c570
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 6670:6670
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true    
+
+  speedA:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.PublisherApp
+      - ARGS=--port 2553 --name speedA --ip speedA
+    depends_on:
+      - viv
+    ports:
+      - 2553:2553
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+
+  densityA:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.PublisherApp
+      - ARGS=--port 2554 --name densityA --ip densityA
+    depends_on:
+      - viv
+    ports:
+      - 2554:2554
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster5]
+    privileged: true
+
+
+  speedB:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.PublisherApp
+      - ARGS=--port 2555 --name speedB --ip speedB
+    depends_on:
+      - viv
+    ports:
+      - 2555:2555
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster6]
+    privileged: true
+
+  densityB:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.machinenodes.PublisherApp
+      - ARGS=--port 2556 --name densityB --ip densityB
+    depends_on:
+      - viv
+    ports:
+      - 2556:2556
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster6]
+    privileged: true
+
+
+  #Pietzuch Subscriber
+  subs1:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.simulation.trasitivecep.SimulationRunner
+      - ARGS= ./logs 1 subs1 2666
+    depends_on:
+      - viv
+      - speedA
+      - densityA
+      - speedB
+      - densityB
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2666:2666
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster0]
+    privileged: true
+
+  #Starks Subscriber
+  subs2:
+    image: adaptivecep
+    environment:
+      - MAIN=adaptivecep.simulation.trasitivecep.SimulationRunner
+      - ARGS=./logs 2 subs2 2667
+    depends_on:
+      - viv
+      - speedA
+      - densityA
+      - speedB
+      - densityB
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 2667:2667
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.hostname == cluster0]
+    privileged: true
+
+  #SplitTime Transition
+#  subs3:
+#    image: adaptivecep
+#    environment:
+#      - MAIN=adaptivecep.simulation.trasitivecep.SimulationRunner
+#      - ARGS= ./logs 3 subs3 2569
+#    depends_on:
+#       - viv
+#    volumes:
+#       - $HOME/logs:/app/logs
+#    ports:
+#       - 2569:2569
+#    networks:
+#       - main
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#         condition: on-failure
+#      placement:
+#        constraints: [node.hostname == cluster0]
+#    privileged: true
+#
+#  #Flip Transition
+#  subs4:
+#    image: adaptivecep
+#    environment:
+#      - MAIN=adaptivecep.simulation.trasitivecep.SimulationRunner
+#      - ARGS= ./logs 4 subs4 2670
+#    depends_on:
+#       - viv
+#    volumes:
+#       - $HOME/logs:/app/logs
+#    ports:
+#       - 2661:2661
+#    networks:
+#       - main
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#         condition: on-failure
+#      placement:
+#        constraints: [node.hostname == cluster0]
+#    privileged: true
+#
+networks:
+  main:

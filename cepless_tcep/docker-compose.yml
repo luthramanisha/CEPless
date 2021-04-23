@@ -1,0 +1,164 @@
+# You can set the hostname of docker host by using this command `sudo hostname <name>`
+version: "3"
+services:
+
+  nserver:
+    image: cloudwattfr/ntpserver:latest
+    ports:
+      - 2200:2200
+    networks:
+      - main
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    privileged: true
+
+  viv:
+    image: tcep
+    environment:
+      - MAIN=tcep.machinenodes.VivaldiApp
+      - ARGS=--port 2549 --ip viv
+    depends_on:
+      - nserver
+    ports:
+      - 2549:2549
+    networks:
+      - main
+      - node-manager-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    privileged: true
+
+  simulator:
+    image: tcep
+    environment:
+      - MAIN=tcep.simulation.tcep.SimulationRunner
+      - ARGS=--dir ./logs --mode 9 --ip simulator --port 2202
+      - SERVERLESS=true
+      # CHANGE BY MATHEUS: ADD ENVIRONMENT CUSTOM_OPERATOR
+      - CUSTOM_OPERATOR=op-test
+    depends_on:
+       - viv
+    volumes:
+       - $HOME/logs:/app/logs
+    ports:
+       - 2202:2202
+       - 25001:25001
+    networks:
+       - main
+       - node-manager-net
+    deploy:
+      replicas: 1
+      restart_policy:
+         condition: on-failure
+    privileged: true
+
+  #DoorSensor:
+  #  image: tcep
+      #  environment:
+      #    - MAIN=tcep.machinenodes.PublisherApp
+    #    - ARGS=--port 3300 --ip DoorSensor --name DoorSensor --host DoorSensor
+      #  depends_on:
+    #    - viv
+      # ports:
+    #- 3300:3300
+      #volumes:
+    #- $HOME/logs:/app/logs
+      #networks:
+      #- main
+    #- node-manager-net
+      #deploy:
+      #replicas: 1
+      #restart_policy:
+    #  condition: on-failure
+    #privileged: true
+
+  SanitizerSensor:
+    image: tcep
+    environment:
+      - MAIN=tcep.machinenodes.PublisherApp
+      - ARGS=--port 3301 --ip SanitizerSensor --name SanitizerSensor --host SanitizerSensor
+      - KAFKA_HOST=172.17.0.1
+      # CHANGE BY MATHEUS: ADD ENVIRONMENT CUSTOM_OPERATOR
+      - CUSTOM_OPERATOR=op-test
+    depends_on:
+      - viv
+    ports:
+      - 3301:3301
+    volumes:
+      - $HOME/logs:/app/logs
+    networks:
+      - main
+      - node-manager-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    privileged: true
+
+  app3:
+    image: tcep
+    environment:
+      - MAIN=tcep.machinenodes.EmptyApp
+      - ARGS=--port 3303 --ip app3
+      - DB_TYPE=redis
+      - REDIS_HOST=redis
+      - OUT_BATCH_SIZE=100
+      - IN_BATCH_SIZE=100
+      - FLUSH_INTERVAL=1
+      - BACK_OFF=1
+    depends_on:
+      - viv
+    volumes:
+      - $HOME/logs:/app/logs
+    ports:
+      - 3303:3303
+    networks:
+      - main
+      - node-manager-net
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    privileged: true
+
+  redis:
+    image: redis
+    networks:
+      - main
+      - node-manager-net
+
+  nodeManager:
+    image: node-manager
+    environment:
+      # CHANGE BY MATHEUS: ADD ENVIRONMENT EXECUTION
+      - EXECUTION=tcep
+      - HOST_LOG_PATH=$HOME/logs
+    ports:
+      - 25003:25003
+    networks:
+      - main
+      - node-manager-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./../operators:/app/operators
+
+#  infinispan:
+#    image: custom-infinispan
+#    expose:
+#      - "11222"
+#    ports:
+#      - "11222:11222"
+ #   networks:
+#      - main
+#      - node-manager-net
+#    environment:
+#      - USER=foo
+#      - PASSWORD=bar
+networks:
+  main:
+  node-manager-net:
+    external: true
