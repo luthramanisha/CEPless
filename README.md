@@ -1,6 +1,31 @@
 # CEPless: Stateful Serverless Complex Event Processing
 
-### Prerequisites 
+CEPless is a unified serverless middleware for developing custom user-defined operators without any runtime or language dependence. It allows application developers to program operators without any knowledge of the underlying CEP system, equivalent to providing "operator-as-a-service" for Complex Event Processing. 
+
+CEPless middleware makes the following novel contributions:
+
++ **In-memory queue management** and **batching** mechanisms that enables stateful processing and ensure correctness and fast delivery of events which are extremely important for CEP systems
++ **Programming interface** to develop CEP operators using the middleware
++ **User-defined operator interface** that allows the integration of highly diverse CEP runtime systems into CEPLESS system and allows runtime system independence.
++ We integrate CEPless into two CEP systems: Flink and TCEP as seen in the following. 
+
+To run CEPless, see [here](#running-tcep)
+
+[Prerequisites](#prerequisites)
+
+[Running TCEP](#running-tcep)
+
+[Running Flink](#running-flink)
+
+[Evaluation](#evaluation)
+
+[Publications](#publications)
+
+[Acknowledgement](#acknowledgement)
+
+[Contact](#contact)
+
+### [Prerequisites](#prerequisites)
 The following frameworks/tools need to be installed in order to be able to run the application: 
 
 - Java 8+
@@ -65,45 +90,7 @@ The operators directory contains some example operators in different programming
 ```
 This will build the corresponding operator and push it to the given docker registry account. 
 
-
-### Running Flink
-
-**1.** Make sure to install the correct version of Maven on your machine (3.2.5 not higher)
-```
-cd /opt
-wget https://www-us.apache.org/dist/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz
-tar -xvzf apache-maven-3.2.5-bin.tar.gz
-```
-**2.** Add Maven to your ~/.bashrc
-``` 
-export PATH=/opt/apache-maven-3.2.5/bin:$PATH
-```
-**3.** Build the Flink project using the following script
-```
-cd ./flink
-./build.sh
-```
-If the build should fail, because of missing dependencies try to switch into the subproject the build where the build is failing (for example flink-tables) and run the following command
-```
-mvn package -DskipTests -Dfast
-```
-After this subproject build succeeds you can run again the build script from above
-**4.**  When the build from step 3 finished successfully, the application can be started by issuing the following command: 
-```
-docker network create node-manager-net
-docker-compose up -d 
-```
-Flink is now starting on your local machine which takes about 30 seconds to finish. 
-**5.** An example query is included in this project in the `cepless_flink` directory. To build the flink executable query jar issue the following commands
-```
-cd ./cepless_flink
-./build.sh
-```
-**6.** After that you can start the example query using the following script from the root directory. Please note to set `--kafka.server`to refect your docker gateway IP.
-```
-./run-flink.sh
-```
-### Running TCEP
+### [Running TCEP](#running-tcep)
 
 **1.** Build all the project parts using the build script provided:
 ```
@@ -130,7 +117,46 @@ docker logs -f custom-test-{id}
 
 The custom operator receives the event submitted from the CEP engine in the redis queue and answers with a simple string `foobar`
 
-### Evaluation
+### [Running Flink](#running-flink)
+
+**1.** Make sure to install the correct version of Maven on your machine (3.2.5 not higher)
+```
+cd /opt
+wget https://www-us.apache.org/dist/maven/maven-3/3.2.5/binaries/apache-maven-3.2.5-bin.tar.gz
+tar -xvzf apache-maven-3.2.5-bin.tar.gz
+```
+**2.** Add Maven to your ~/.bashrc
+``` 
+export PATH=/opt/apache-maven-3.2.5/bin:$PATH
+```
+**3.** Clone and build the Flink project using the following script
+```
+git clone git@github.com:apache/flink.git
+cd ./flink
+./build.sh
+```
+If the build should fail, because of missing dependencies try to switch into the subproject the build where the build is failing (for example flink-tables) and run the following command
+```
+mvn package -DskipTests -Dfast
+```
+After this subproject build succeeds you can run again the build script from above
+**4.**  When the build from step 3 finished successfully, the application can be started by issuing the following command: 
+```
+docker network create node-manager-net
+docker-compose up -d 
+```
+Flink is now starting on your local machine which takes about 30 seconds to finish. 
+**5.** An example query is included in this project in the `cepless_flink` directory. To build the flink executable query jar issue the following commands
+```
+cd ./cepless_flink
+./build.sh
+```
+**6.** After that you can start the example query using the following script from the root directory. Please note to set `--kafka.server`to refect your docker gateway IP.
+```
+./run-flink.sh
+```
+
+### [Evaluation](#evaluation)
 
 To evaluate the system using the included financial transaction dataset, we added a throttled Kafka producer benchmark. This benchmark needs to be build with the following commands
 ```
@@ -142,3 +168,14 @@ Afterwards the benchmark can be started with the following command. Please note 
 ```
 java -jar build/libs/kafka-producer.jar --topic op-test --num-records 1000000000 --producer-props bootstrap.servers=172.17.0.1:9092 --payload-file ../evaluation/cardtransactions-reduced.csv --throughput 1000
 ```
+
+## [Publications](#publications)
+[1] Manisha Luthra, Sebastian Hennig, Kamran Razavi, Lin Wang, and Boris Koldehofe: Operator as a Service: Stateful Serverless Complex Event Processing. In: 2020 IEEE International Conference on Big Data Workshop, pp. 1964-1973, IEEE, December 2020. <a href="https://doi.org/10.1109/BigData50022.2020.9378142" target="_blank">10.1109/BigData50022.2020.9378142</a> 
+
+## [Acknowledgement](#acknowledgement)
+
+This work has been co-funded by the German Research Foundation (DFG) within the <a href="https://www.maki.tu-darmstadt.de/sfb_maki/ueber_maki/index.en.jsp" target="_blank">Collaborative Research Center (CRC) 1053 -- MAKI</a>
+
+## [Contact](#contact)
+
+Feel free to contact <a href="https://www.kom.tu-darmstadt.de/kom-multimedia-communications-lab/people/staff/manisha-luthra/" target="_blank">Manisha Luthra</a> or <a href="https://www.rug.nl/staff/b.koldehofe/" target="_blank">Boris Koldehofe</a> for any questions. 
