@@ -1,4 +1,4 @@
-# CEPless: Towards Serverless Complex Event Processing
+# CEPless: Stateful Serverless Complex Event Processing
 
 ### Prerequisites 
 The following frameworks/tools need to be installed in order to be able to run the application: 
