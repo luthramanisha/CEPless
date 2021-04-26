@@ -174,6 +174,8 @@ java -jar build/libs/kafka-producer.jar --topic op-test --num-records 1000000000
 ## [Publications](#publications)
 [1] Manisha Luthra, Sebastian Hennig, Kamran Razavi, Lin Wang, and Boris Koldehofe: Operator as a Service: Stateful Serverless Complex Event Processing. In: Proceedings of the IEEE International Conference on Big Data Workshop, pp. 1964-1973, IEEE, December 2020. <a href="https://doi.org/10.1109/BigData50022.2020.9378142" target="_blank">10.1109/BigData50022.2020.9378142</a> 
 
+[2] Manisha Luthra, Sebastian Hennig, Pratyush Agnihotri, Lin Wang, Boris Koldehofe: Highly Flexible Server Agnostic Complex Event Processing Operators. In: Proceedings of the 20th ACM/IFIP International Middleware Conference Poster & Demos, pp. 11-12, December 2019. <a href="https://doi.org/10.1145/3366627.3368110" target="_blank">10.1145/3366627.3368110</a>
+
 ## [Acknowledgement](#acknowledgement)
 
 This work has been co-funded by the German Research Foundation (DFG) within the <a href="https://www.maki.tu-darmstadt.de/sfb_maki/ueber_maki/index.en.jsp" target="_blank">Collaborative Research Center (CRC) 1053 -- MAKI</a>
